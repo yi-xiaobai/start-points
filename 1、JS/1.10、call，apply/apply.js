@@ -34,8 +34,6 @@ Function.prototype.apply2 = function (ctx) {
         for (var i = 0; i < arr.length; i++) {
             args.push('arr[' + i + ']')
         }
-        console.log('ctx.fn(' + args + ')');
-
         res = eval('ctx.fn(' + args + ')')
     }
     console.log('==>Get res', res);
