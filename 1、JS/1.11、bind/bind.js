@@ -145,7 +145,7 @@ Function.prototype.bind4 = function (ctx) {
         // 获取返回函数的参数 全部
         var bindArgs = Array.prototype.slice.call(arguments)
 
-        //* 如果函数被new了  那么fBound 处于 this的原型链上
+        //* 如果函数被new了  那么fNop 处于 this的原型链上
         return _this.apply(this instanceof fNop ? this : ctx, args.concat(bindArgs))
     }
 
