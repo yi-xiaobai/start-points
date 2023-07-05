@@ -1,4 +1,9 @@
 
+// 如果你持续触发事件，每隔一段时间，只执行一次事件。
+// 根据首次是否执行以及结束后是否执行，效果有所不同，实现的方式也有所不同。
+
+
+
 var count = 1;
 var container = document.getElementById('container');
 
