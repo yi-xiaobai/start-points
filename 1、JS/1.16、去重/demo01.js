@@ -8,7 +8,7 @@ function unique(array) {
 
     for (var i = 0, len = array.length; i < len; i++) {
         for (var j = 0, resLen = res.length; j < resLen; j++) {
-            // 如果array种有和  结果数组中的值相同  直接跳出循环
+            // 如果array中有和  结果数组中的值相同  直接跳出循环
             if (array[i] === res[j]) {
                 break
             }

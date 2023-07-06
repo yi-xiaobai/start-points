@@ -25,3 +25,4 @@ function type(obj) {
 
 console.log(type(date));    // date
 console.log(type(reg));     // regexp
+console.log(type([]));     // array
