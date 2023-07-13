@@ -37,7 +37,7 @@ function MyPromise(executor) {
             self.status = 'rejected'
             self.data = reason
             for (let i = 0; i < self.onRejectedCallBack.length; i++) {
-                self.onRejectedCallBack[i](value)
+                self.onRejectedCallBack[i](reason)
             }
         }
     }
@@ -48,6 +48,7 @@ function MyPromise(executor) {
         executor(resolve, reject)
     } catch (error) {
         console.error(error);
+        reject(error)
     }
 }
 
@@ -66,8 +67,8 @@ MyPromise.prototype.then = function (onResolved, onReject) {
     var promise2
 
     // 如果 onResolved / onReject 不是函数 则需要处理下
-    onResolved = typeof onResolved === 'function' ? onResolved : function (v) { }
-    onReject = typeof onReject === 'function' ? onReject : function (r) { }
+    onResolved = typeof onResolved === 'function' ? onResolved : function (v) { return v}
+    onReject = typeof onReject === 'function' ? onReject : function (r) { throw r}
 
 
     // 成功
@@ -136,4 +137,14 @@ MyPromise.prototype.then = function (onResolved, onReject) {
     }
 
 
+}
+
+
+/**
+ * 捕获异常的方法
+ * @param {*} onRejected 
+ * @returns 
+ */
+MyPromise.prototype.catch = function (onRejected) {
+    return this.then(null, onRejected)
 }
