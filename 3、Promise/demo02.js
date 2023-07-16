@@ -194,7 +194,7 @@ function resolvePromise(promise2, x, resolve, reject) {
                 })
             } else {
                 // 2.3.3.4 If then is not a function, fulfill promise with x.
-                resolve(x)
+                return resolve(x)
             }
         } catch (error) {
             if (thenCalledOrThrow) return
@@ -204,7 +204,7 @@ function resolvePromise(promise2, x, resolve, reject) {
 
     } else {
         // 标准 2.3.4 if x is not an object or function, fulfill promise with x.  非函数或者对象
-        resolve(x)
+        return resolve(x)
     }
 }
 
