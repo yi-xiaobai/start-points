@@ -29,6 +29,6 @@ function objectFactory() {
     // 执行构造函数 初始化参数
     var ret = Constructor.call(obj, Array.prototype.slice.call(arguments, 0))
 
-    // 如果ret的类型时对象 那么返回ret   否则返回 obj
+    // 如果ret的类型是对象 那么返回ret  否则返回 obj
     return typeof ret === 'object' ? ret : obj
 }

@@ -169,6 +169,11 @@ function resolvePromise(promise2, x, resolve, reject) {
 }
 
 
+ReviewPromise.prototype.catch = function (onRejected) {
+    return this.then(null, onRejected)
+}
+
+
 ReviewPromise.all = function (promises) {
     return new ReviewPromise(function (resolve, reject) {
         var promiseCount = 0;

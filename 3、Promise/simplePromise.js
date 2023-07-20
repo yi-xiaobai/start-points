@@ -7,7 +7,6 @@ function Promise(fn) {
         setTimeout(() => {
             this.data = value;
             this.cbs.forEach((cb) => {
-                // console.log('==>Get cb', cb);
                 cb(value)
             });
         });
@@ -17,9 +16,9 @@ function Promise(fn) {
 }
 
 Promise.prototype.then = function (onResolved) {
+    console.log('then方法');
     return new Promise((resolve) => {
         this.cbs.push(() => {
-            // console.log('==>Get onResolved', onResolved);
             const res = onResolved(this.data);
             console.log('==>Get this.data', this.data);
             console.log('==>Get 返回值', res);
@@ -29,28 +28,60 @@ Promise.prototype.then = function (onResolved) {
                 resolve(res);
             }
         });
-        console.log('==>Get this.cbs.length', this.cbs.length);
     });
 };
 
 
-new Promise((resolve) => {
+// new Promise((resolve) => {
+//     setTimeout(() => {
+//         console.log('resolve1');
+//         // resolve1
+//         resolve(1);
+//     }, 500);
+// })
+//     // then1
+//     .then((res) => {
+//         console.log('111', res);
+//         // user promise
+//         return new Promise((resolve) => {
+//             setTimeout(() => {
+//                 // resolve2
+//                 resolve(2);
+//             }, 500);
+//         });
+//     })
+//     // then2
+//     .then((res) => {
+//         console.log('222', res)
+//         return res
+//     });
+
+
+
+var promise1 = new Promise((resolve) => {
     setTimeout(() => {
+        console.log('resolve1');
         // resolve1
         resolve(1);
     }, 500);
 })
-    // then1
-    .then((res) => {
-        console.log(res);
-        // user promise
-        return new Promise((resolve) => {
-            setTimeout(() => {
-                // resolve2
-                resolve(2);
-            }, 500);
-        });
-    })
-    // then2
-    // .then(console.log);
 
+
+var userPromise
+
+var promise2 = promise1.then((res) => {
+    console.log('111', res);
+    // user promise
+    userPromise = new Promise((resolve) => {
+        setTimeout(() => {
+            // resolve2
+            resolve(2);
+        }, 500);
+    });
+    return userPromise
+})
+
+promise2.then((res) => {
+    console.log('222', res)
+    return res
+});
