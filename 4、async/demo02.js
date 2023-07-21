@@ -45,6 +45,8 @@ function asyncToGenerator(fn) {
                     return resolve(value)
                 } else {
                     return Promise.resolve(value).then((res) => {
+                        // 必须带上当前的值
+                        // 下一次next时 会把值赋给对应的变量
                         step('next', res)
                     }, (reason) => {
                         step('throw', reason)
