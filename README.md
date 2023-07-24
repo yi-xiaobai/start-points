@@ -1,2 +1,2 @@
-# plan
-One's own thoughts
+# startPoints
+my career
