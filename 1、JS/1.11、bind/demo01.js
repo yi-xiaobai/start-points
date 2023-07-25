@@ -13,10 +13,15 @@ function bar(name, age) {
 }
 
 
-barBind = bar.bind(foo, "晚秋")
-barBind(18)
+barBind = bar.bind(foo)
+// barBind("晚秋时节", 18)
 /**
  *   ==>Get this.value 1
- *   ==>Get name 晚秋
+ *   ==>Get name 晚秋时节
  *   ==>Get age 18 
  */
+
+
+new Promise((resolve, reject) => {
+    resolve('yyll')
+}).then(barBind)
