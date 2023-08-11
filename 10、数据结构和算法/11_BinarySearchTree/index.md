@@ -1,4 +1,5 @@
 
+二叉搜索树（Binary Search Tree）简称 BST 是二叉树的一种特殊形式
 
 ## 什么是二叉搜索树
 
