@@ -1,9 +1,13 @@
 # 注意点
 
 1.  切勿将数字放在 && 左侧 可以改成布尔值 比如 number > 0 && xxx
-2.  Hooks ——以 use 开头的函数——只能在组件或****自定义 Hook** 的最顶层调用
+2.  Hooks ——以 use 开头的函数——只能在组件或\***\*自定义 Hook** 的最顶层调用
 
-## 添加样式
+
+
+## 描述UI
+
+### 添加样式
 
 ```jsx
 <div className="avatar"></div>
@@ -19,7 +23,7 @@
 
 x
 
-## 显示数据
+### 显示数据
 
 显示 user.name 的值
 
@@ -61,7 +65,7 @@ export default function Profile() {
 
 **style{ }** JSX 大括号内的一个普通 {} 对象
 
-## 条件渲染
+### 条件渲染
 
 ```jsx
 if(true){
@@ -81,7 +85,7 @@ let flag = true
 flag && '你好'
 ```
 
-## 渲染列表
+### 渲染列表
 
 有一个 key 属性 对于列表中的每一个元素 你应该传递一个字符串或者数字给 key 用于在其兄弟节点中唯一标识该元素
 
@@ -101,7 +105,7 @@ export default function ShoppingLists() {
 }
 ```
 
-## 拆分步骤
+### 拆分步骤
 
 1.  将 UI 拆分为组件层级结构
 
@@ -126,7 +130,7 @@ export default function ShoppingLists() {
 
 5.  添加反向数据流
 
-## 组件
+### 组件
 
 1. 组件名称必须**大写**
 2. 标签和 return 不在同一行 必须包括在一对括号中 否则都会被忽略
@@ -144,13 +148,16 @@ export default function ShoppingLists() {
 
 ### 为什么多个 JSX 标签需要被一个父元素包裹？
 
-JSX 虽然看起来很像 HTML，但在底层其实被转化为了 JavaScript 对象，你不能在一个函数中返回多个对象，除非用一个数组把他们包装起来。这就是为什么多个 JSX 标签必须要用一个父元素或者 Fragment 来包裹
+JSX 虽然看起来很像 HTML，但在底层其实被转化为了 JavaScript 对象，你不能在一个函数中返回多个对象，除非用一个数组把他们包装起来。这就是为什么多个 JSX 标签必须要用一个父元素或者 Fragment 来包裹t
 
 
-## 响应事件
 
+## 添加交互
 
-### 写法
+### 响应事件
+
+#### 写法
+
 ```jsx
 // 第一种事件写法
 function handleClick(){
@@ -164,23 +171,121 @@ function handleClick(){
 <button onClick={()=>{//...}}></button>
 ```
 
+#### 事件传播
 
-### 事件传播
->   在 React 中所有事件都会传播，除了 onScroll
-
+> 在 React 中所有事件都会传播，除了 onScroll
 
 事件分三个阶段传播
+
 1.  它向下传播，调用所有的 onClickCapture 处理函数
 2.  它执行被点击元素的 onClick 处理函数
 3.  它向上传播，调用所有的 onClick 处理函数
 
-
-## 组件的记忆
+### 组件的记忆
 
 更新局部变量
+
 1.  局部变量无法在多次渲染中持久保存
 2.  更改局部变量不会触发渲染
 
 如果要使用新数据更新组件 需要
+
 1.  保留渲染之间的数据
-2.  触发React使用新数据渲染组件
+2.  触发 React 使用新数据渲染组件
+
+### 渲染和提交
+
+1.  触发一次渲染 (点菜)
+2.  React 渲染组件 (厨房做菜)
+3.  提交到 DOM (上菜)
+
+### 快照
+
+> React 会使 state 的值始终”固定“在一次渲染的各个事件处理函数内部
+
+无论渲染过程中值如何变化 state 的值在当前渲染中是多少 直到这次渲染结束还是多少！！！
+
+### state 更新加入队列
+
+```jsx
+# 根据队列中前一个state的值计算下一个state的函数
+setNumber(n => n + 1)
+
+# 传入下一个state的值
+setNumber( n + 1)
+```
+
+### 更新 state 对象
+
+**存放在 state 中的对象都视为只读的**
+
+```jsx
+import { useState } from "react";
+
+export default function Form() {
+  const [person, setPerson] = userState({
+    firstName: "yy",
+    lastName: "ll",
+    city: {
+      title: "Blue Nana",
+      city: "Hamburg",
+      image: "https://i.imgur.com/Sd1AgUOm.jpg",
+    },
+  });
+
+  function handleSetFirstName() {
+    setPerson({
+      ...person,
+      firstName: "aaa",
+    });
+  }
+
+
+  // 更新嵌套对象
+  function handleSetCity(){
+    setPerson({
+      ...person,
+      city:{
+        ...person.city,
+        city:"wuhan"
+      }
+    })
+  }
+}
+```
+
+### 更新 state 数组
+
+**存放在 state 中的数组都视为只读的**
+
+
+```js
+添加元素：concat、[...arr]
+
+删除元素：filter、slice
+
+修改元素：map
+
+排序：先将数组赋值一份
+```
+
+
+
+
+
+## 状态管理
+
+### 用state响应输入
+
+开发一个组件时
+  1.  写出组件中所有的视图状态
+  2.  确定是什么触发了这些state的改变
+  3.  通过useState模块化内存的state
+  4.  删除不必要的state变量
+  5.  连接事件处理函数去设置state
+
+
+### 选择state结构 
+
+### 组件共享状态
+> 提升变量到子组件最近的负组件中 然后通过props的方式进行共享状态
